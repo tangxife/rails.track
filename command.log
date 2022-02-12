@@ -1,0 +1,2 @@
+docker-compose exec web bundle install
+docker-compose exec web bin/rails g graphql:install
