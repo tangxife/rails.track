@@ -17,6 +17,45 @@ org1 = Organization.create!(
   contacts: 'con1'
 )
 
+p 'create org1_user1'
+
+user1 = org1.users.create!(
+  name: 'org1_user1',
+  email: 'user1@email.com',
+  phone: '15982363913',
+  department: 'HR',
+  role: 1,
+  organization: org1
+)
+
+p 'create org1_other_user'
+
+user_a = org1.users.create!(
+  name: 'org1_user_a',
+  email: 'user_a@email.com',
+  phone: '15982363913',
+  department: 'HR',
+  role: 1,
+  organization: org1
+)
+
+p 'create org1_user1_candidates'
+
+15.times do |i|
+  org1.candidates.create!(
+    cid: "O1U1_#{i}",
+    name: "org1_user1_candidate#{i}",
+    email: "O1U1_#{i}@email.com",
+    phone: '15982363913',
+    area_code: '86',
+    now_org_name: "now_org#{i}",
+    now_industry: "IT",
+    memo: "memo#{i}",
+    user: user1,
+    language: 1
+  )
+end
+
 p 'create organization_2'
 
 org2 = Organization.create!(
@@ -27,6 +66,41 @@ org2 = Organization.create!(
   address: 'chengdu gaoxing',
   contacts: 'con2'
 )
+
+user2 = org2.users.create!(
+  name: 'org2_user2',
+  email: 'user2@email.com',
+  phone: '15982363913',
+  department: 'HR',
+  role: 2,
+  organization: org2
+)
+
+user_b = org2.users.create!(
+  name: 'org1_user_b',
+  email: 'user_b@email.com',
+  phone: '15982363913',
+  department: 'HR',
+  role: 1,
+  organization: org2
+)
+
+p 'create org2_user2_candidates'
+
+15.times do |i|
+  org2.candidates.create!(
+    cid: "O2U2_#{i}",
+    name: "org2_user2_candidate#{i}",
+    email: "O2U2_#{i}@email.com",
+    phone: '15982363913',
+    area_code: '86',
+    now_org_name: "now_org#{i}",
+    now_industry: "FINANCE",
+    memo: "memo#{i}",
+    user: user2,
+    language: 1
+  )
+end
 
 # p "create candidates"
 #

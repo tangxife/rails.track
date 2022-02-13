@@ -11,5 +11,17 @@ module Types
     field :contacts, String
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+    field :users, UserType.connection_type, null: false
+
+    def users
+      object.users.order(:created_at)
+    end
+
+    field :candidates, CandidateType.connection_type, null: true
+
+    def candidates
+      object.candidates.order(:created_at)
+    end
   end
 end

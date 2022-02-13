@@ -13,12 +13,21 @@ module Types
     field :now_org_name, String
     field :now_industry, String
     field :memo, String
-    # field :organization_id, Integer, null: false
-    # field :user_id, Integer, null: false
-    # todo add organization and user
     field :language, Integer, null: false
     field :deleted_at, GraphQL::Types::ISO8601DateTime
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+    field :organization, String, null: false
+
+    def organization
+      object.organization.name
+    end
+
+    field :user, String, null: false
+
+    def user
+      object.user.name
+    end
   end
 end
