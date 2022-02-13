@@ -2,3 +2,6 @@ docker-compose exec web bundle install
 docker-compose exec web bin/rails g graphql:install
 docker-compose exec web bin/rails generate migration CreateCandidate
 docker-compose exec web bin/rails generate model candidate
+docker-compose exec web bin/rails g graphql:object Candidate
+docker-compose exec web bin/rails db:seed:replant
+docker-compose exec web bin/rails db:migrate

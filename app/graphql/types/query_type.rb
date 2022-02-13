@@ -4,8 +4,14 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    # Add root-level fields here.
+    # Add root-level fields here. todo add organization query
     # They will be entry points for queries on your schema.
+
+    field :candidates, CandidateType.connection_type, null: true, description: "For query candidates"
+
+    def candidates
+      Candidate.all
+    end
 
     # TODO: remove me
     field :test_field, String, null: false,

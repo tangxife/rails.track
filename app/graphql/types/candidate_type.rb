@@ -2,17 +2,20 @@
 
 module Types
   class CandidateType < Types::BaseObject
+    description 'candidate info'
+
     field :id, ID, null: false
     field :cid, String
     field :name, String, null: false
     field :email, String, null: false
     field :area_code, String
     field :phone, String
-    field :now_rog_name, String
+    field :now_org_name, String
     field :now_industry, String
     field :memo, String
-    field :organization_id, Integer, null: false
-    field :user_id, Integer, null: false
+    # field :organization_id, Integer, null: false
+    # field :user_id, Integer, null: false
+    # todo add organization and user
     field :language, Integer, null: false
     field :deleted_at, GraphQL::Types::ISO8601DateTime
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
