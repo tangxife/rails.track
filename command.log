@@ -5,3 +5,4 @@ docker-compose exec web bin/rails generate model candidate
 docker-compose exec web bin/rails g graphql:object Candidate
 docker-compose exec web bin/rails db:seed:replant
 docker-compose exec web bin/rails db:migrate
+docker-compose exec web bin/rails generate migration AddForeginKeyToCandidate
