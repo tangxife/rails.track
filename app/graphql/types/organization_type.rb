@@ -21,7 +21,7 @@ module Types
     field :candidates, CandidateType.connection_type, null: true
 
     def candidates
-      object.candidates.order(:created_at)
+      object.candidates.includes(:user).order(:created_at)
     end
   end
 end
