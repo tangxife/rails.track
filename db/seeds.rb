@@ -22,6 +22,7 @@ p 'create org1_user1'
 user1 = org1.users.create!(
   name: 'org1_user1',
   email: 'user1@email.com',
+  password: "111111",
   phone: '15982363913',
   department: 'HR',
   role: 1,
@@ -33,6 +34,7 @@ p 'create org1_other_user'
 user_a = org1.users.create!(
   name: 'org1_user_a',
   email: 'user_a@email.com',
+  password: "111111",
   phone: '15982363913',
   department: 'HR',
   role: 1,
@@ -70,6 +72,7 @@ org2 = Organization.create!(
 user2 = org2.users.create!(
   name: 'org2_user2',
   email: 'user2@email.com',
+  password: "111111",
   phone: '15982363913',
   department: 'HR',
   role: 2,
@@ -79,6 +82,7 @@ user2 = org2.users.create!(
 user_b = org2.users.create!(
   name: 'org1_user_b',
   email: 'user_b@email.com',
+  password: "111111",
   phone: '15982363913',
   department: 'HR',
   role: 1,
