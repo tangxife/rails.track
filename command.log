@@ -6,3 +6,4 @@ docker-compose exec web bin/rails g graphql:object Candidate
 docker-compose exec web bin/rails db:seed:replant
 docker-compose exec web bin/rails db:migrate
 docker-compose exec web bin/rails generate migration AddForeginKeyToCandidate
+docker-compose exec web bundle exec rails generate graphql_devise:install User --mount AppSchema
