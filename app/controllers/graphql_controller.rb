@@ -19,7 +19,6 @@ class GraphqlController < ApplicationController
     # }
     context = gql_devise_context(User)
     p "authenticated user: #{context[:current_resource].inspect}"
-    # p context[:current_resource]
     result = AppSchema.execute(query, variables: variables, context: gql_devise_context(User),
                                operation_name: operation_name)
     render json: result

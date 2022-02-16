@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_14_153133) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_16_054325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_14_153133) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_organizations_on_name", unique: true
+  end
+
+  create_table "reference_checks", force: :cascade do |t|
+    t.bigint "candidate_id"
+    t.bigint "user_id"
+    t.integer "progress", limit: 2, default: 0
+    t.date "answer_deadline", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"], name: "index_reference_checks_on_candidate_id"
+    t.index ["user_id"], name: "index_reference_checks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,5 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_14_153133) do
   end
 
   add_foreign_key "candidates", "organizations"
+  add_foreign_key "reference_checks", "candidates"
+  add_foreign_key "reference_checks", "users"
   add_foreign_key "users", "organizations"
 end

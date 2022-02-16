@@ -1,5 +1,5 @@
-source "https://rubygems.org"
-# source "https://gems.ruby-china.com"
+# source "https://rubygems.org"
+source "https://gems.ruby-china.com"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.3"
@@ -53,6 +53,7 @@ gem "graphql"
 gem "devise_token_auth", github: "lynndylanhurley/devise_token_auth"
 gem 'graphql_devise', github: "graphql-devise/graphql_devise"
 gem 'omniauth', '~> 2.0', '>= 2.0.4'
+gem 'nokogiri', '~> 1.13', '>= 1.13.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
