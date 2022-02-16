@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_16_054325) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_16_094738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_16_054325) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_organizations_on_name", unique: true
+  end
+
+  create_table "recommender_settings", force: :cascade do |t|
+    t.bigint "reference_check_id"
+    t.integer "relation", limit: 2
+    t.integer "period", limit: 2
+    t.integer "num", limit: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reference_check_id"], name: "index_recommender_settings_on_reference_check_id"
   end
 
   create_table "reference_checks", force: :cascade do |t|
@@ -92,6 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_16_054325) do
   end
 
   add_foreign_key "candidates", "organizations"
+  add_foreign_key "recommender_settings", "reference_checks"
   add_foreign_key "reference_checks", "candidates"
   add_foreign_key "reference_checks", "users"
   add_foreign_key "users", "organizations"

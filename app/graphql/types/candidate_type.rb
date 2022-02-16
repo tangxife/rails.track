@@ -14,20 +14,10 @@ module Types
     field :now_industry, String
     field :memo, String
     field :language, Integer, null: false
-    field :deleted_at, GraphQL::Types::ISO8601DateTime
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-
-    field :organization, String, null: false
-
-    def organization
-      object.organization.name
-    end
-
-    field :user, String, null: false
-
-    def user
-      object.user.name
-    end
+    # field :deleted_at, GraphQL::Types::ISO8601DateTime
+    # field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    # field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :organization_id, ID, null: false
+    field :user_id, ID, null: false
   end
 end

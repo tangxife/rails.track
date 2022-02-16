@@ -9,8 +9,8 @@ module Types
     field :phone, String
     field :department, String
     field :role, Integer, null: false
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    # field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    # field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :organization, String, null: false
 

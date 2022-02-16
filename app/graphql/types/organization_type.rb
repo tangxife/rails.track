@@ -9,8 +9,8 @@ module Types
     field :postal_code, String
     field :address, String
     field :contacts, String
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    # field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    # field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :users, UserType.connection_type, null: false
 

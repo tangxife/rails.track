@@ -7,4 +7,9 @@ class User < ApplicationRecord
 
   belongs_to :organization
   has_many :candidates
+
+  enum :role, {
+    owner: 1,
+    member: 2
+  }
 end

@@ -2,24 +2,26 @@ module Mutations
   module Candidates
     class Add < BaseMutation
       argument :input, Types::Inputs::CandidateInput, required: true
-
       field :candidate, Types::CandidateType, null: false
 
       def resolve(input:)
-        current_user = context[:current_resource]
-        p "候補者登録 user: #{current_user.inspect} candidate ..."
+        user = context[:current_resource]
+        p "候補者登録 user: #{user.inspect} candidate ..."
 
-        candidate_attr = input.to_h.except(:reference_check)
-                              .merge(organization: current_user.organization)
-        reference_check_attr =input.to_h[:reference_check].merge(user: current_user)
+        candidate_attr = input.to_h.except(:reference_check).merge(organization: user.organization)
+        user = User.find(candidate_attr[:user_id]) unless candidate_attr[:user_id].nil?
+
+        reference_check_attr = input.to_h[:reference_check].except(:recommender_settings).merge(user: user)
+        recommender_setting_attrs = input.to_h[:reference_check][:recommender_settings]
 
         rst = ActiveRecord::Base.transaction do
-          candidate = current_user.candidates.create!(candidate_attr)
-          candidate.reference_check.create!(reference_check_attr)
+          candidate = user.candidates.create!(candidate_attr)
+          reference_check = candidate.reference_checks.create!(reference_check_attr)
+          reference_check.recommender_settings.create!(recommender_setting_attrs)
           candidate
         end
 
-        {candidate: rst}
+        { candidate: rst }
       end
     end
   end
