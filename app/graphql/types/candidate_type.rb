@@ -19,5 +19,6 @@ module Types
     # field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :organization_id, ID, null: false
     field :user_id, ID, null: false
+    field :reference_checks, [ReferenceCheckType], null: false
   end
 end

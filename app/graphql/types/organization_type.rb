@@ -11,17 +11,23 @@ module Types
     field :contacts, String
     # field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     # field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :users, [UserType], null: true
+    field :candidates, [CandidateType], null: true
 
-    field :users, UserType.connection_type, null: false
-
-    def users
-      object.users.order(:created_at)
+    field :user, UserType, null: false do
+      argument :id, ID, required: false
     end
 
-    field :candidates, CandidateType.connection_type, null: true
+    def user(id: nil)
+      object.users.find(id)
+    end
 
-    def candidates
-      object.candidates.includes(:user).order(:created_at)
+    field :candidate, CandidateType, null: true do
+      argument :id, ID, required: false
+    end
+
+    def candidate(id: nil)
+      object.candidates.includes(:user).find(id)
     end
   end
 end
