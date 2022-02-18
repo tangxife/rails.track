@@ -18,39 +18,51 @@ module Types
 
     field :candidates, [CandidateType], null: true do
       argument :name, String, required: false
-      argument :ref_chk_progress, Integer, required: false
+      argument :ref_chk_progress, String, required: false
     end
 
     field :candidate, CandidateType, null: true do
       argument :id, ID, required: false
     end
 
+    field :count_candidate_by_progress, GraphQL::Types::JSON, null: false
+
     def user(id: nil)
       object.users.find(id)
     end
 
     def candidates(name: nil, ref_chk_progress: nil)
-      candidates = object.candidates
+      candidates = object.candidates.includes(:reference_checks)
 
       unless ref_chk_progress.nil?
-        candidates = candidates.joins(:reference_checks)
-                               .where(reference_check: { progress: ref_chk_progress })
+        case ref_chk_progress
+        when 'draft'
+          candidates = candidates.joins(:reference_checks)
+                                 .where('reference_checks.progress <= ?', RefChkProgress::DRAFT.id.to_s)
+        when 'unopend'
+          candidates = candidates.joins(:reference_checks)
+                                 .where(reference_checks: { progress: RefChkProgress::MAIL_SENDED.id })
+        when 'unresgistered'
+          candidates = candidates.joins(:reference_checks)
+                                 .where(reference_checks: { progress: RefChkProgress::MAIL_OPENED.id })
+        when 'unanswered'
+          candidates = candidates.joins(:reference_checks)
+                                 .where('? < reference_checks.progress and reference_checks.progress <= ?',
+                                        RefChkProgress::MAIL_OPENED.id.to_s, RefChkProgress::ANSWERED.id.to_s)
+        end
       end
 
-      candidates = candidates.where('name like ?', "%#{name}%") unless name.nil?
-
-      # if !name.nil?
-      #   candidates = candidates.where('name like ?', "%#{name}%") unless name.nil?
-      # elseif !ref_chk_progress.nil?
-      #    candidates = candidates.joins(:reference_checks).where(reference_check: { progress: ref_chk_progress })
-      #   else
-      #
-      #   end
+      candidates = candidates.where('candidates.name like ?', "%#{name}%") unless name.nil?
       candidates
     end
 
     def candidate(id: nil)
       object.candidates.includes(:user).find(id)
+    end
+
+    def count_candidate_by_progress
+      # todo 把 1 和 2 的加起来返回
+      object.candidates.joins(:reference_checks).group(:progress).count
     end
   end
 end
