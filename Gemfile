@@ -54,6 +54,7 @@ gem "devise_token_auth", github: "lynndylanhurley/devise_token_auth"
 gem 'graphql_devise', github: "graphql-devise/graphql_devise"
 gem 'omniauth', '~> 2.0', '>= 2.0.4'
 gem 'nokogiri', '~> 1.13', '>= 1.13.1'
+gem 'active_hash'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

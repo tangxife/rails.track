@@ -6,12 +6,11 @@ module Mutations
 
       def resolve(input:)
         user = context[:current_resource]
-        p "候補者登録 user: #{user.inspect} candidate ..."
-
         candidate_attr = input.to_h.except(:reference_check).merge(organization: user.organization)
         user = User.find(candidate_attr[:user_id]) unless candidate_attr[:user_id].nil?
 
-        reference_check_attr = input.to_h[:reference_check].except(:recommender_settings).merge(user: user)
+        reference_check_attr = input.to_h[:reference_check].except(:recommender_settings)
+                                    .merge(user: user, progress: RefChkProgress::NULL.id)
         recommender_setting_attrs = input.to_h[:reference_check][:recommender_settings]
 
         rst = ActiveRecord::Base.transaction do

@@ -5,8 +5,8 @@ module Types
     # field :id, ID, null: false
     # field :candidate_id, Integer
     # field :user_id, Integer
-    # field :progress, Integer
     field :answer_deadline, GraphQL::Types::ISO8601Date, null: false
     field :recommender_settings, [RecommenderSettingType], null: false
+    field :progress, Integer, null: false
   end
 end
