@@ -49,6 +49,8 @@ module Types
                                    '? < reference_checks.progress and reference_checks.progress <= ?',
                                    RefChkProgress::MAIL_OPENED.id.to_s, RefChkProgress::ANSWERED.id.to_s
                                  )
+        else
+          # type code here
         end
       end
 
@@ -61,7 +63,7 @@ module Types
     end
 
     def count_candidate_by_progress
-      # todo 把 1 和 2 的加起来返回
+      # todo 可以考虑把 1 和 2 的加起来返回
       object.candidates.joins(:reference_checks).group(:progress).count
     end
   end

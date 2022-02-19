@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_16_094738) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_19_102231) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "candidate_comments", force: :cascade do |t|
+    t.bigint "candidate_id"
+    t.bigint "user_id"
+    t.string "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"], name: "index_candidate_comments_on_candidate_id"
+    t.index ["user_id"], name: "index_candidate_comments_on_user_id"
+  end
 
   create_table "candidates", force: :cascade do |t|
     t.string "cid", limit: 30
