@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_19_163345) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_19_172808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,13 +57,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_163345) do
 
   create_table "question_templates", force: :cascade do |t|
     t.bigint "organization_id", null: false
-    t.bigint "reference_check_id"
     t.string "title", limit: 256, null: false
     t.integer "language", limit: 2, default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_question_templates_on_organization_id"
-    t.index ["reference_check_id"], name: "index_question_templates_on_reference_check_id"
   end
 
   create_table "recommender_settings", force: :cascade do |t|
@@ -83,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_163345) do
     t.date "answer_deadline", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "question_template_id"
     t.index ["candidate_id"], name: "index_reference_checks_on_candidate_id"
     t.index ["user_id"], name: "index_reference_checks_on_user_id"
   end
@@ -124,7 +123,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_163345) do
 
   add_foreign_key "candidates", "organizations"
   add_foreign_key "question_templates", "organizations"
-  add_foreign_key "question_templates", "reference_checks"
   add_foreign_key "recommender_settings", "reference_checks"
   add_foreign_key "reference_checks", "candidates"
   add_foreign_key "reference_checks", "users"

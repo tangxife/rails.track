@@ -25,6 +25,8 @@ module Types
 
     field :count_candidate_by_progress, GraphQL::Types::JSON, null: false
 
+    field :question_templates, [QuestionTemplateType], null: true
+
     def user(id: nil)
       object.users.find(id)
     end
