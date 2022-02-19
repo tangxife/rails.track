@@ -20,5 +20,15 @@ module Types
     field :organization_id, ID, null: false
     field :user_id, ID, null: false
     field :reference_checks, [ReferenceCheckType], null: false
+    field :candidate_comments, [CandidateCommentType], null: true
+    
+    def reference_checks
+      BatchLoader::GraphQL.for(object.id).batch(default_value: []) do |ids, loader|
+        Candidate.where(id: ids).each do |candidate|
+          loader.call(candidate.id, candidate.reference_checks)
+        end
+      end
+    end
+
   end
 end
