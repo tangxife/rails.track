@@ -45,8 +45,10 @@ module Types
                                  .where(reference_checks: { progress: RefChkProgress::MAIL_OPENED.id })
         when 'unanswered'
           candidates = candidates.joins(:reference_checks)
-                                 .where('? < reference_checks.progress and reference_checks.progress <= ?',
-                                        RefChkProgress::MAIL_OPENED.id.to_s, RefChkProgress::ANSWERED.id.to_s)
+                                 .where(
+                                   '? < reference_checks.progress and reference_checks.progress <= ?',
+                                   RefChkProgress::MAIL_OPENED.id.to_s, RefChkProgress::ANSWERED.id.to_s
+                                 )
         end
       end
 
