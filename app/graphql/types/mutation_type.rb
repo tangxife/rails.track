@@ -8,5 +8,6 @@ module Types
 
     field :add_candidate_comment, mutation: Mutations::CandidateComments::AddComment
     field :update_candidate_comment, mutation: Mutations::CandidateComments::UpdateComment
+    field :delete_candidate_comment, mutation: Mutations::CandidateComments::DeleteComment
   end
 end
