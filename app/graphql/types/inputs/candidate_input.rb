@@ -1,7 +1,7 @@
 module Types
   module Inputs
     class CandidateInput < Types::BaseInputObject
-      argument :id, Integer, required: false, description: "Id of candidate"
+      argument :id, Integer, required: false, description: 'Id of candidate'
       argument :name, String, required: true
       argument :email, String, required: false
       argument :area_code, String, required: false

@@ -1,15 +1,15 @@
 module Mutations
   module QuestionTemplates
     class DeleteQuestionTemplate < BaseMutation
-      argument :template_id, ID, required: true, description: 'Id of Question Template.'
-      field :question_template, Types::QuestionTemplateType, null: false, description: 'Question Template.'
+      argument :ids, [ID], required: true, description: 'Id of Question Template.'
+      field :question_templates, [Types::QuestionTemplateType], null: false, description: 'Question Template.'
 
-      def resolve(template_id:)
-        question_template = QuestionTemplate.find(template_id)
-        question_template.destroy!
+      def resolve(ids:)
+        question_templates = QuestionTemplate.find(ids)
+        question_templates.each(&:destroy!)
 
         {
-          question_template: question_template
+          question_templates: question_templates
         }
       end
     end

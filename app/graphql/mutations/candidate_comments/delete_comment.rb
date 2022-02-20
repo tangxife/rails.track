@@ -1,16 +1,20 @@
 module Mutations
   module CandidateComments
     class DeleteComment < BaseMutation
-      argument :comment_id, ID, required: true, description: 'Id of comment.'
-      field :candidate_comment, Types::CandidateCommentType, null: false, description: 'Candidate comment.'
+      argument :ids, [ID], required: true, description: 'Id of comment.'
+      field :candidate_comments, [Types::CandidateCommentType], null: false, description: 'Candidate comment.'
 
-      def resolve(comment_id:)
+      def resolve(ids:)
         current_user = context[:current_resource]
-        candidate_comment = CandidateComment.find(comment_id)
-        candidate_comment.destroy! if current_user.id == candidate_comment.user_id
+        candidate_comments = CandidateComment.find(ids)
+        res = []
+
+        candidate_comments.each do |comment|
+          comment.destroy! if current_user.id == comment.user_id
+        end
 
         {
-          candidate_comment: candidate_comment
+          candidate_comments: candidate_comments
         }
       end
     end

@@ -13,5 +13,9 @@ module Types
     field :add_question_templates, mutation: Mutations::QuestionTemplates::AddQuestionTemplate, description: 'Add Question Template.'
     field :update_question_templates, mutation: Mutations::QuestionTemplates::UpdateQuestionTemplate, description: 'Update Question Template.'
     field :delete_question_templates, mutation: Mutations::QuestionTemplates::DeleteQuestionTemplate, description: 'Delete Question Template.'
+
+    field :add_question, mutation: Mutations::Questions::AddQuestion
+    field :update_question, mutation: Mutations::Questions::UpdateQuestion
+    field :delete_question, mutation: Mutations::Questions::DeleteQuestion
   end
 end
