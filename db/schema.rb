@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_19_172808) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_20_071602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_172808) do
     t.index ["organization_id"], name: "index_question_templates_on_organization_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "title", limit: 1000, null: false
+    t.string "purpose", limit: 1000
+    t.string "answer_example0", limit: 1000
+    t.string "answer_example1", limit: 1000
+    t.boolean "is_recommended", default: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_questions_on_organization_id"
+  end
+
   create_table "recommender_settings", force: :cascade do |t|
     t.bigint "reference_check_id"
     t.integer "relation", limit: 2
@@ -84,6 +97,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_172808) do
     t.integer "question_template_id"
     t.index ["candidate_id"], name: "index_reference_checks_on_candidate_id"
     t.index ["user_id"], name: "index_reference_checks_on_user_id"
+  end
+
+  create_table "template_questions", id: false, force: :cascade do |t|
+    t.bigint "question_template_id", null: false
+    t.bigint "question_id", null: false
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_template_questions_on_question_id"
+    t.index ["question_template_id", "question_id"], name: "index_template_questions_on_template_id_and_question_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -123,6 +146,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_172808) do
 
   add_foreign_key "candidates", "organizations"
   add_foreign_key "question_templates", "organizations"
+  add_foreign_key "questions", "organizations"
   add_foreign_key "recommender_settings", "reference_checks"
   add_foreign_key "reference_checks", "candidates"
   add_foreign_key "reference_checks", "users"
