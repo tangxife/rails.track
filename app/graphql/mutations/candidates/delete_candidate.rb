@@ -1,6 +1,6 @@
 module Mutations
   module Candidates
-    class Delete < BaseMutation
+    class DeleteCandidate < BaseMutation
       argument :ids, [ID], required: true, description: "Id of candidates"
 
       field :candidates, [Types::CandidateType], null: false

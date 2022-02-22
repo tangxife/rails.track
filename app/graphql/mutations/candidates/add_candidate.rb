@@ -1,6 +1,6 @@
 module Mutations
   module Candidates
-    class Add < BaseMutation
+    class AddCandidate < BaseMutation
       argument :input, Types::Inputs::CandidateInput, required: true
       field :candidate, Types::CandidateType, null: false
 

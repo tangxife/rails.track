@@ -2,9 +2,9 @@ module Types
   class MutationType < Types::BaseObject
     field :register, mutation: Mutations::Register, authenticate: false, description: 'User Sign Up.'
 
-    field :add_candidate, mutation: Mutations::Candidates::Add, description: 'Add Candidate.'
-    field :update_candidate, mutation: Mutations::Candidates::Update, description: 'Update Candidate.'
-    field :delete_candidate, mutation: Mutations::Candidates::Delete, description: 'Delete Candidate.'
+    field :add_candidate, mutation: Mutations::Candidates::AddCandidate, description: 'Add Candidate.'
+    field :update_candidate, mutation: Mutations::Candidates::UpdateCandidate, description: 'Update Candidate.'
+    field :delete_candidate, mutation: Mutations::Candidates::DeleteCandidate, description: 'Delete Candidate.'
 
     field :add_candidate_comment, mutation: Mutations::CandidateComments::AddComment, description: 'Add Candidate Comment.'
     field :update_candidate_comment, mutation: Mutations::CandidateComments::UpdateComment, description: 'Update Candidate Comment.'
