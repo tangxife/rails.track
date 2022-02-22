@@ -20,12 +20,15 @@ module Types
     end
 
     field :candidate, CandidateType, null: true do
-      argument :id, ID, required: false
+      argument :id, ID, required: true
     end
 
     field :count_candidate_by_progress, GraphQL::Types::JSON, null: false
 
     field :question_templates, [QuestionTemplateType], null: true
+    field :question_template, QuestionTemplateType, null: true do
+      argument :id, ID, required: false
+    end
     field :questions, [Types::Interfaces::QuestionInterface], null: true
 
     def user(id: nil)
@@ -68,6 +71,10 @@ module Types
     def count_candidate_by_progress
       # todo 可以考虑把 1 和 2 的加起来返回
       object.candidates.joins(:reference_checks).group(:progress).count
+    end
+
+    def question_template(id:)
+      object.question_templates.find(id)
     end
   end
 end

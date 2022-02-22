@@ -5,11 +5,11 @@ module Mutations
       field :template_questions, [Types::TemplateQuestionType], null: false
 
       def resolve(inputs:)
-        old_template_questions = TemplateQuestion.where(question_template_id: inputs[0].to_h[:question_template_id])
+        question_template = QuestionTemplate.find(inputs[0].to_h[:question_template_id])
+        old_template_questions = question_template.template_questions
 
         ActiveRecord::Base.transaction do
-          old_template_questions.each(&:destroy!)
-          question_template = QuestionTemplate.find(inputs[0].to_h[:question_template_id])
+          old_template_questions.each(&:destroy)
 
           inputs.each do |input|
             template_question_attr = input.to_h.except(:question_template_id, :question)
