@@ -12,7 +12,6 @@ module Types
       field :purpose, String
       field :is_recommended, Boolean
       field :type, String, null: false
-      field :order, Integer, null: true
 
       definition_methods do
         # Determine what object type to use for `object`
