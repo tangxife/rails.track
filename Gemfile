@@ -56,6 +56,7 @@ gem 'graphql'
 gem 'graphql_devise', github: 'graphql-devise/graphql_devise'
 gem 'nokogiri', '~> 1.13', '>= 1.13.1'
 gem 'omniauth', '~> 2.0', '>= 2.0.4'
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_22_094540) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_22_151906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_094540) do
     t.index ["user_id"], name: "index_reference_checks_on_user_id"
   end
 
+  create_table "tag_joins", force: :cascade do |t|
+    t.string "tagable_type"
+    t.bigint "tagable_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_tag_joins_on_tag_id"
+    t.index ["tagable_type", "tagable_id"], name: "index_tag_joins_on_tagable"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "title", limit: 32, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "organization_id", null: false
+    t.index ["title"], name: "index_tags_on_title"
+  end
+
   create_table "template_questions", force: :cascade do |t|
     t.bigint "question_template_id"
     t.bigint "question_id"
@@ -151,6 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_22_094540) do
   add_foreign_key "recommender_settings", "reference_checks"
   add_foreign_key "reference_checks", "candidates"
   add_foreign_key "reference_checks", "users"
+  add_foreign_key "tags", "organizations"
   add_foreign_key "template_questions", "question_templates"
   add_foreign_key "template_questions", "questions"
   add_foreign_key "users", "organizations"
